@@ -42,6 +42,10 @@ function makeIdleRoundGame(turnTimeSeconds: number): RoundGameState {
 export interface GameStore {
   match: Match | null
   draft: NewGameDraft | null
+  uiLanguage: AppLanguage
+
+  // Language
+  setUiLanguage: (language: AppLanguage) => void
 
   // Wizard actions
   startDraft: (interfaceLanguage: AppLanguage) => void
@@ -76,6 +80,11 @@ export const useGameStore = create<GameStore>()(
     immer((set, get) => ({
       match: null,
       draft: null,
+      uiLanguage: 'en',
+
+      setUiLanguage: (language) => {
+        set((state) => { state.uiLanguage = language })
+      },
 
       // ── Wizard ──────────────────────────────────────────────────────────
 
