@@ -14,6 +14,8 @@ function LanguageSync() {
     if (i18n.language !== uiLanguage) {
       i18n.changeLanguage(uiLanguage)
     }
+    // Keep <html lang="…"> in sync so assistive technology uses the right voice
+    document.documentElement.lang = uiLanguage
   }, [uiLanguage])
 
   return null

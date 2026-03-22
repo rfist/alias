@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../store'
+import { useFocusOnMount } from '../hooks/useFocusOnMount'
 
 export default function Prepare() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const headingRef = useFocusOnMount<HTMLHeadingElement>()
   const match = useGameStore((state) => state.match)
 
   if (!match) {
@@ -24,7 +26,13 @@ export default function Prepare() {
       {/* Leaderboard */}
       <section aria-label={t('prepare.leaderboard')}>
         <div className="flex items-baseline justify-between mb-2">
-          <h2 className="text-base font-bold text-gray-700">{t('prepare.leaderboard')}</h2>
+          <h2
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-base font-bold text-gray-700 outline-none"
+        >
+          {t('prepare.leaderboard')}
+        </h2>
           <span className="text-xs text-gray-500">
             {t('prepare.targetScore', { points: settings.targetPoints })}
           </span>

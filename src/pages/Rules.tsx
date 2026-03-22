@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { useFocusOnMount } from '../hooks/useFocusOnMount'
 
 export default function Rules() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const headingRef = useFocusOnMount<HTMLHeadingElement>()
   const lines = t('rules.lines', { returnObjects: true }) as string[]
 
   return (
@@ -11,7 +13,9 @@ export default function Rules() {
       <button onClick={() => navigate('/')} className="self-start mb-6 text-sm">
         ← {t('common.back')}
       </button>
-      <h1 className="text-2xl font-bold mb-4">{t('rules.title')}</h1>
+      <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-bold mb-4 outline-none">
+        {t('rules.title')}
+      </h1>
       <ul className="space-y-3">
         {lines.map((line, i) => (
           <li key={i} className="flex gap-2">

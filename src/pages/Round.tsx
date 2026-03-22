@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useFocusOnMount } from '../hooks/useFocusOnMount'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -22,6 +23,8 @@ export default function Round() {
 
   // Drive the countdown timer
   useTimer()
+
+  const teamNameRef = useFocusOnMount<HTMLParagraphElement>()
 
   // Navigate to Results when a turn finishes
   useEffect(() => {
@@ -68,7 +71,11 @@ export default function Round() {
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
       <header className="flex justify-between items-start mb-4">
         <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
+          <p
+            ref={teamNameRef}
+            tabIndex={-1}
+            className="text-xs text-gray-500 uppercase tracking-wider font-semibold outline-none"
+          >
             {activeTeam.name}
           </p>
           <p className="text-xs text-gray-400 mt-0.5">{t('round.guessedCount')}</p>

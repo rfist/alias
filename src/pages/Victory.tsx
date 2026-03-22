@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../store'
+import { useFocusOnMount } from '../hooks/useFocusOnMount'
 
 export default function Victory() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const headingRef = useFocusOnMount<HTMLHeadingElement>()
   const match = useGameStore((state) => state.match)
   const abandonMatch = useGameStore((state) => state.abandonMatch)
   const startDraft = useGameStore((state) => state.startDraft)
@@ -37,7 +39,11 @@ export default function Victory() {
       {/* Winner hero */}
       <div className="flex-1 flex flex-col items-center justify-center gap-3">
         <div className="w-48 h-48 rounded-full bg-yellow-400 flex flex-col items-center justify-center text-center p-4">
-          <p className="text-xs font-bold tracking-widest text-yellow-700 uppercase">
+          <p
+            ref={headingRef}
+            tabIndex={-1}
+            className="text-xs font-bold tracking-widest text-yellow-700 uppercase outline-none"
+          >
             {winners.length > 1 ? t('victory.tiedWinners') : t('victory.winnerLabel')}
           </p>
           <p className="text-2xl font-black leading-tight mt-1">

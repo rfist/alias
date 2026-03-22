@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../store'
+import { useFocusOnMount } from '../hooks/useFocusOnMount'
 import type { AppLanguage } from '../types'
 import i18n from '../i18n'
 
 export default function MainMenu() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const headingRef = useFocusOnMount<HTMLHeadingElement>()
   const { uiLanguage, setUiLanguage, startDraft, match } = useGameStore()
 
   function handleLanguageChange(lang: AppLanguage) {
@@ -21,7 +23,9 @@ export default function MainMenu() {
 
   return (
     <main className="flex min-h-svh flex-col items-center justify-center gap-6 p-6">
-      <h1 className="text-4xl font-bold">{t('mainMenu.title')}</h1>
+      <h1 ref={headingRef} tabIndex={-1} className="text-4xl font-bold outline-none">
+        {t('mainMenu.title')}
+      </h1>
 
       <div className="flex gap-2">
         <button
