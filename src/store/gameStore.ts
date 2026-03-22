@@ -63,8 +63,9 @@ export interface GameStore {
   tick: (elapsedMs: number) => void
   resolveSharedLastWord: (guessedByTeamId: string) => void
 
-  // Results screen action
-  continueFromResults: () => void
+  // Results screen
+  resultsPending: boolean       // true after a turn ends; Round screen watches this to navigate
+  clearResultsPending: () => void
 
   // Meta
   abandonMatch: () => void
@@ -81,6 +82,7 @@ export const useGameStore = create<GameStore>()(
       match: null,
       draft: null,
       uiLanguage: 'en',
+      resultsPending: false,
 
       setUiLanguage: (language) => {
         set((state) => { state.uiLanguage = language })
@@ -389,12 +391,8 @@ export const useGameStore = create<GameStore>()(
 
       // ── Results ─────────────────────────────────────────────────────────
 
-      // Called when the user presses Continue on the Results screen.
-      // By this point _finishTurn has already run; this just triggers navigation.
-      // The component reads match.victory to decide where to go.
-      continueFromResults: () => {
-        // Navigation is handled by the component watching match.victory.
-        // Nothing extra to do here for now — the state is already updated.
+      clearResultsPending: () => {
+        set((state) => { state.resultsPending = false })
       },
 
       // ── Meta ────────────────────────────────────────────────────────────
@@ -464,6 +462,9 @@ export const useGameStore = create<GameStore>()(
 
           // 7. Reset current round game for the next team
           match.currentRoundGame = makeIdleRoundGame(settings.turnTimeSeconds)
+
+          // 8. Signal the Round screen to navigate to Results
+          state.resultsPending = true
         })
       },
     })),
