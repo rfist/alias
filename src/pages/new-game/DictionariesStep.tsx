@@ -9,9 +9,9 @@ import type { DictionaryLanguage } from '../../types'
 export default function DictionariesStep() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { draft, setDraftDictionary, createMatch } = useGameStore()
+  const { draft, match, setDraftDictionary, createMatch } = useGameStore()
 
-  if (!draft) {
+  if (!draft && !match) {
     navigate('/')
     return null
   }
