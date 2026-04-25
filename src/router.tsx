@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createHashRouter, Navigate } from 'react-router-dom'
 import MainMenu from './pages/MainMenu'
 import Rules from './pages/Rules'
 import TeamsStep from './pages/new-game/TeamsStep'
@@ -9,7 +9,7 @@ import Round from './pages/Round'
 import Results from './pages/Results'
 import Victory from './pages/Victory'
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   { path: '/', element: <MainMenu /> },
   { path: '/rules', element: <Rules /> },
   { path: '/new-game', element: <Navigate to="/new-game/teams" replace /> },
