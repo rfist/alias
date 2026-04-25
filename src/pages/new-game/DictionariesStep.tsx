@@ -11,8 +11,8 @@ export default function DictionariesStep() {
   const navigate = useNavigate()
   const { draft, match, setDraftDictionary, createMatch } = useGameStore()
 
-  if (!draft && !match) {
-    navigate('/')
+  if (!draft) {
+    if (!match) navigate('/')
     return null
   }
 
