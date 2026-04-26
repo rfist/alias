@@ -154,20 +154,20 @@ export default function Round() {
       {isWordVisible && (
         <div className="flex gap-3 mb-4">
           <button
-            onClick={skipWord}
-            className="flex-1 rounded-xl border-2 border-gray-300 py-4 text-lg font-bold
-              text-gray-600 active:scale-95 transition-transform"
-            aria-label={t('round.skipped')}
-          >
-            ✗ {t('round.skipped')}
-          </button>
-          <button
             onClick={guessWord}
             className="flex-1 rounded-xl bg-green-500 py-4 text-lg font-bold text-white
               active:scale-95 transition-transform"
             aria-label={t('round.guessed')}
           >
             ✓ {t('round.guessed')}
+          </button>
+          <button
+            onClick={skipWord}
+            className="flex-1 rounded-xl border-2 border-gray-300 py-4 text-lg font-bold
+              text-gray-600 active:scale-95 transition-transform"
+            aria-label={t('round.skipped')}
+          >
+            ✗ {t('round.skipped')}
           </button>
         </div>
       )}

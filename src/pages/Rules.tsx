@@ -16,14 +16,14 @@ export default function Rules() {
       <h1 ref={headingRef} tabIndex={-1} className="text-2xl font-bold mb-4 outline-none">
         {t('rules.title')}
       </h1>
-      <ul className="space-y-3">
+      <ol className="space-y-3">
         {lines.map((line, i) => (
           <li key={i} className="flex gap-2">
-            <span className="text-yellow-500 font-bold">{i + 1}.</span>
+            <span className="text-yellow-500 font-bold" aria-hidden="true">{i + 1}.</span>
             <span>{line}</span>
           </li>
         ))}
-      </ul>
+      </ol>
     </main>
   )
 }

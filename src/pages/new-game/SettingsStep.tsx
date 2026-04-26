@@ -138,7 +138,7 @@ function SettingRow({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex justify-between items-baseline">
-        <span className="text-sm font-medium text-gray-700">{label}</span>
+        <h2 className="text-sm font-medium text-gray-700">{label}</h2>
         {value && <span className="text-sm font-semibold text-gray-900">{value}</span>}
       </div>
       {children}
@@ -157,15 +157,15 @@ function SwitchRow({
   onCheckedChange: (v: boolean) => void
   id: string
 }) {
+  const labelId = `${id}-label`
   return (
     <div className="flex items-center justify-between">
-      <label htmlFor={id} className="text-sm font-medium text-gray-700 cursor-pointer">
-        {label}
-      </label>
+      <h2 id={labelId} className="text-sm font-medium text-gray-700">{label}</h2>
       <Switch.Root
         id={id}
         checked={checked}
         onCheckedChange={onCheckedChange}
+        aria-labelledby={labelId}
         className={`relative w-10 h-6 rounded-full transition-colors
           ${checked ? 'bg-yellow-400' : 'bg-gray-200'}`}
       >
