@@ -22,7 +22,7 @@ export default function MainMenu() {
   }
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center gap-6 p-6">
+    <main className="relative flex min-h-svh flex-col items-center justify-center gap-6 p-6">
       <h1 ref={headingRef} tabIndex={-1} className="text-4xl font-bold outline-none">
         {t('mainMenu.title')}
       </h1>
@@ -66,6 +66,10 @@ export default function MainMenu() {
       >
         {t('mainMenu.rules')}
       </button>
+
+      <span aria-hidden="true" className="absolute bottom-2 right-3 text-xs text-gray-400">
+        v{__APP_VERSION__}
+      </span>
     </main>
   )
 }
