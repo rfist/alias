@@ -17,7 +17,7 @@ export const DICTIONARIES: Dictionary[] = [
     id: 'uk-quick',
     language: 'uk',
     title: 'Швидка гра',
-    difficulty: 'medium',
+    difficulty: 'easy',
     examples: ['яблуко', 'велосипед', 'океан', 'гітара'],
     words: ukQuickWords,
   },

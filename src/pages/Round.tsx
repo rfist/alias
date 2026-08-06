@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useFocusOnMount } from '../hooks/useFocusOnMount'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useTranslation } from 'react-i18next'
@@ -285,11 +285,17 @@ function WordDisplay({ word }: { word: string }) {
 // Uses 'assertive' for timer end (urgent), 'polite' for word changes (non-disruptive).
 function WordAnnouncer({ word, status }: { word: string | null; status: RoundGameStatus }) {
   const { t } = useTranslation()
-  const prevWordRef = useRef<string | null>(null)
-  const wordMessage = word && word !== prevWordRef.current
-    ? t('round.a11y.newWord', { word })
-    : ''
-  prevWordRef.current = word
+  const [prevWord, setPrevWord] = useState<string | null>(null)
+  const [wordMessage, setWordMessage] = useState('')
+
+  if (word !== prevWord) {
+    setPrevWord(word)
+    if (word) {
+      setWordMessage(t('round.a11y.newWord', { word }))
+    } else {
+      setWordMessage('')
+    }
+  }
 
   const urgentMessage =
     status === 'last_word' || status === 'shared_last_word'

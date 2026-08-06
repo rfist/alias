@@ -19,8 +19,10 @@ export function useTimer() {
     status === 'shared_last_word'
 
   const stateRef = useRef({ shouldTick, tick })
-  stateRef.current = { shouldTick, tick }
 
+  useEffect(() => {
+    stateRef.current = { shouldTick, tick }
+  }, [shouldTick, tick])
   useEffect(() => {
     let lastTime: number | null = null
 
